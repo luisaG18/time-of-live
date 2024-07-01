@@ -1,0 +1,102 @@
+:root {
+  --color: blue;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.box {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  flex-direction: column;
+}
+.row {
+  display: flex;
+  gap: 4px;
+  
+}
+
+.item {
+  border: 1px solid black;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  position: relative;
+}
+
+
+
+.item--blue {
+  background-color: blue;
+  --color: blue;
+}
+
+.item--green {
+  background-color: green;
+  --color: green;
+}
+
+.item--red {
+  background-color: red;
+  --color: red;
+}
+
+.item--filled{ 
+  background-color: blue;
+}
+
+.item span {
+  color: var(--color);
+}
+
+.item-content {
+  display: flex;
+  position: absolute;
+  right: 24px;
+  font-size: 12px;
+  line-height: 12px;
+  top: 5px;
+}
+.item-content span:first-of-type {
+  text-align: center;
+}
+
+.item-content span:last-of-type {
+  flex: none;
+}
+
+.arrow {
+  position: relative;
+  display: block;
+  background-color: var(--color);
+  width: 24px;
+  height: 2px;
+  border-radius:  0 50% 50% 0;
+}
+.arrow::before,
+.arrow::after {
+  content: '';
+  position: absolute;
+  height: 2px;
+  width: 8px;
+  right: 0;
+  background-color: var(--color);;
+  
+}
+
+.arrow::after {
+  top: -3px;
+  transform: rotate(45deg);
+  border-radius: 50% 0 0  50%;
+}
+
+.arrow::before {
+  top: 3px;
+  transform: rotate(-45deg);
+  border-radius: 50% 0 0  50%;
+}
+
