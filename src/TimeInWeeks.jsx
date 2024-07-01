@@ -1,56 +1,21 @@
 import { useEffect, useState } from "react";
+import {
+  getBaseClasses,
+  getConditions,
+  getDays,
+  getEmptyArray,
+} from "./helpers/dates";
 
 export function TimeInWeeks() {
   const [date, setDate] = useState({ years: 0, months: 0, weeks: 0 });
   const [bornDate, setBornDate] = useState("1999-05-03");
 
-  const getDays = () => {
-    let initialDate = new Date(bornDate);
-    let currentDate = new Date();
+  const array25 = getEmptyArray(75);
+  const array36 = getEmptyArray(52);
 
-    let subtraction = currentDate.getTime() - initialDate.getTime();
-    const days = Math.round(subtraction / (1000 * 60 * 60 * 24));
-    console.log({
-      years: Math.round(days / 365),
-      months: Math.round(days / 30.6),
-      weeks: Math.round(days / 7),
-    });
-    return {
-      years: Math.round(days / 365),
-      months: Math.round(days / 30.6),
-      weeks: Math.round(days / 7),
-    };
-  };
+  const conditions = getConditions([0, 30, 60]);
 
-  const array25 = Array(75).fill(undefined);
-  const array36 = Array(52).fill(undefined);
-
-  const conditions = {
-    0: {
-      text: "Birth",
-      class: "item--blue",
-    },
-    30: {
-      text: "30th Birthday",
-      class: "item--green",
-    },
-    60: {
-      text: "60th Birthday",
-      class: "item--red",
-    },
-  };
-
-  const getClasses = (indexRow, index) => {
-    let classes = "item";
-    if (indexRow in conditions && index === 0) {
-      classes += " " + conditions[indexRow].class;
-    }
-    const weeks = (indexRow + 1) * 52 - (52 - index);
-    if (date.weeks > weeks) {
-      classes += " item--filled";
-    }
-    return classes;
-  };
+  const getClasses = getBaseClasses(52, conditions, "weeks");
 
   const handleChange = (event) => {
     setBornDate(event.target.value);
@@ -58,7 +23,7 @@ export function TimeInWeeks() {
   };
 
   const updateDate = () => {
-    setDate(getDays());
+    setDate(getDays(bornDate));
   };
 
   useEffect(() => {
@@ -84,7 +49,7 @@ export function TimeInWeeks() {
           <div className="row" key={indexRow}>
             {array36.map((item, index) => (
               <div
-                className={getClasses(indexRow, index)}
+                className={getClasses(indexRow, index, date)}
                 key={index}
                 title={indexRow * 52 + (index + 1)}
               >

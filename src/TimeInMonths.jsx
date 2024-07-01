@@ -1,54 +1,21 @@
 import { useEffect, useState } from "react";
+import {
+  getBaseClasses,
+  getConditions,
+  getDays,
+  getEmptyArray,
+} from "./helpers/dates";
 
 export function TimeInMonths() {
   const [date, setDate] = useState({ years: 0, months: 0 });
   const [bornDate, setBornDate] = useState("1999-05-03");
 
-  const getDate = () => {
-    let fecha1 = new Date(bornDate);
-    let fecha2 = new Date();
+  const array25 = getEmptyArray(25);
+  const array36 = getEmptyArray(36);
 
-    let resta = fecha2.getTime() - fecha1.getTime();
-    const dias = Math.round(resta / (1000 * 60 * 60 * 24));
-    console.log({
-      years: Math.round(dias / 365),
-      months: Math.round(dias / 30.6),
-    });
-    return {
-      years: Math.round(dias / 365),
-      months: Math.round(dias / 30.6),
-    };
-  };
+  const conditions = getConditions([0, 10, 20]);
 
-  const array25 = Array(25).fill(undefined);
-  const array36 = Array(36).fill(undefined);
-
-  const conditions = {
-    0: {
-      text: "Birth",
-      class: "item--blue",
-    },
-    10: {
-      text: "30th Birthday",
-      class: "item--green",
-    },
-    20: {
-      text: "60th Birthday",
-      class: "item--red",
-    },
-  };
-
-  const getClasses = (indexRow, index) => {
-    let classes = "item";
-    if (indexRow in conditions && index === 0) {
-      classes += " " + conditions[indexRow].class;
-    }
-    const months = (indexRow + 1) * 36 - (36 - index);
-    if (date.months > months) {
-      classes += " item--filled";
-    }
-    return classes;
-  };
+  const getClasses = getBaseClasses(36, conditions, "months");
 
   const handleChange = (event) => {
     setBornDate(event.target.value);
@@ -56,7 +23,7 @@ export function TimeInMonths() {
   };
 
   const updateDate = () => {
-    setDate(getDate());
+    setDate(getDays(bornDate));
   };
 
   useEffect(() => {
@@ -81,7 +48,7 @@ export function TimeInMonths() {
           <div className="row" key={indexRow}>
             {array36.map((item, index) => (
               <div
-                className={getClasses(indexRow, index)}
+                className={getClasses(indexRow, index, date)}
                 key={index}
                 title={indexRow * 36 + (index + 1)}
               >
