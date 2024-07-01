@@ -1,15 +1,6 @@
-import { useEffect, useState } from "react";
-import {
-  getBaseClasses,
-  getConditions,
-  getDays,
-  getEmptyArray,
-} from "./helpers/dates";
+import { getBaseClasses, getConditions, getEmptyArray } from "./helpers/dates";
 
-export function TimeInWeeks() {
-  const [date, setDate] = useState({ years: 0, months: 0, weeks: 0 });
-  const [bornDate, setBornDate] = useState("1999-05-03");
-
+export function TimeInWeeks({ date }) {
   const array25 = getEmptyArray(75);
   const array36 = getEmptyArray(52);
 
@@ -17,31 +8,8 @@ export function TimeInWeeks() {
 
   const getClasses = getBaseClasses(52, conditions, "weeks");
 
-  const handleChange = (event) => {
-    setBornDate(event.target.value);
-    updateDate();
-  };
-
-  const updateDate = () => {
-    setDate(getDays(bornDate));
-  };
-
-  useEffect(() => {
-    updateDate();
-  }, []);
-
   return (
-    <div className="app">
-      <div>
-        <input
-          placeholder="Ingrese su edad"
-          type="date"
-          value={bornDate}
-          onChange={(event) => {
-            handleChange(event);
-          }}
-        />
-      </div>
+    <div>
       <div className="info-weeks">Weeks of the year ----</div>
 
       <div className="box">
