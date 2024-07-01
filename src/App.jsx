@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div className="app">
-      <ViewSelector component={component} updateComponent={updateComponent} />
+      <ViewSelector updateComponent={updateComponent} />
       <TimeView component={component} />
     </div>
   );

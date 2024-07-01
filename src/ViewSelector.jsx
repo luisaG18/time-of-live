@@ -1,4 +1,4 @@
-export function ViewSelector({ component, updateComponent }) {
+export function ViewSelector({ updateComponent }) {
   function clickHandler(component) {
     if (component === "timeInMonths") {
       updateComponent("TimeInMonths");
